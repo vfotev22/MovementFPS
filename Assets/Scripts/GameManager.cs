@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
-
+using System.Collections;
 public class GameUIManager : MonoBehaviour
 {
     [Header("HUD")]
@@ -13,6 +13,8 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private TMP_Text finalScoreText;
     [SerializeField] private Button retryButton;
+
+
 
     private int score;
     private bool ended;
@@ -62,5 +64,21 @@ public class GameUIManager : MonoBehaviour
     private void UpdateScoreLabel()
     {
         if (scoreText) scoreText.text = $"Score: {score}";
+    }
+
+
+    public IEnumerator RestartWithFade()
+    {
+        yield return new WaitForSeconds(0.5f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    public void RestartGame()
+    {
+        // Ensure time is normal again (if game was paused)
+        Time.timeScale = 1f;
+
+        // Reload the active scene to reset everything
+        Scene currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(currentScene.buildIndex);
     }
 }
