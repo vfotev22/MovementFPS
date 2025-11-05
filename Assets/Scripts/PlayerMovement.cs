@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -45,9 +46,17 @@ public class PlayerMovement : MonoBehaviour
     public float maxSlopeAngle;
     private RaycastHit slopeHit;
     private bool exitingSlope;
-    
+
+    [Header("Test Stage")]
+    public GameObject TestCollectibles;
+    public int TestScore;
+    public GameObject GameManager;
+
+    [Header("Respawn Settings")]
+    public Transform startPoint;
 
     public Transform orientation;
+    public GameUIManager ui;
 
     float horizontalInput;
     float verticalInput;
@@ -79,10 +88,23 @@ public class PlayerMovement : MonoBehaviour
         readyToJump = true;
 
         startYScale = transform.localScale.y;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            QuitGame();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            ReloadScene();
+        }
+        
+        
         // ground check
         grounded = Physics.Raycast(transform.position, UnityEngine.Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
 
@@ -300,5 +322,42 @@ public class PlayerMovement : MonoBehaviour
     public UnityEngine.Vector3 GetSlopeMoveDirection(UnityEngine.Vector3 direction)
     {
         return UnityEngine.Vector3.ProjectOnPlane(direction, slopeHit.normal).normalized;
+    }
+
+    // Collecting the collectibles and handling other stuff in the tutorial course
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Collectible"))
+        {
+            other.gameObject.SetActive(false);
+            ui.AddScore(1);
+            TestScore++;
+        }
+
+        if (other.gameObject.CompareTag("Finish Line") && TestScore >= 10)
+        {
+            ui.ShowWin();
+        }
+
+        if (other.gameObject.CompareTag("Kill Plane"))
+        {
+            ui.ShowGameOver();
+            rb.velocity = UnityEngine.Vector3.zero;
+            rb.angularVelocity = UnityEngine.Vector3.zero;
+            rb.isKinematic = true;
+            enabled = false;
+        }
+    }
+
+    private void QuitGame()
+    {
+        Application.Quit();
+        Debug.Log("Quit Hit");
+    }
+    private void ReloadScene()
+    {
+        Time.timeScale = 1f;
+
+        SceneManager.LoadScene("Test Course");
     }
 }

@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.EventSystems;
 public class GameUIManager : MonoBehaviour
 {
     [Header("HUD")]
@@ -11,13 +12,16 @@ public class GameUIManager : MonoBehaviour
     [Header("End Screens")]
     [SerializeField] private GameObject winPanel;
     [SerializeField] private GameObject gameOverPanel;
-    [SerializeField] private TMP_Text finalScoreText;
+    [SerializeField] private TMP_Text gameOverScoreText;
+    [SerializeField] private TMP_Text winScoreText;
     [SerializeField] private Button retryButton;
+    [SerializeField] private Button winRetryButton;
 
 
 
     private int score;
     private bool ended;
+    public int Score => score;
 
     void Awake()
     {
@@ -25,7 +29,13 @@ public class GameUIManager : MonoBehaviour
         if (gameOverPanel) gameOverPanel.SetActive(false);
 
         if (retryButton != null)
+        {
             retryButton.onClick.AddListener(Retry);
+        }
+        if(winRetryButton != null)
+        {
+            winRetryButton.onClick.AddListener(Retry);
+        }        
     }
 
     void Start()
@@ -44,21 +54,38 @@ public class GameUIManager : MonoBehaviour
     {
         if (ended) return;
         ended = true;
-        finalScoreText.text = $"Score: {score}";
+        gameOverScoreText.text = $"Score: {score}";
         gameOverPanel.SetActive(true);
+
+        Time.timeScale = 0f;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        if(retryButton)
+        {
+            EventSystem.current.SetSelectedGameObject(retryButton.gameObject);
+        }
     }
 
     public void ShowWin()
     {
         if (ended) return;
         ended = true;
-        finalScoreText.text = $"Score: {score}";
+        winScoreText.text = $"Score: {score}";
         winPanel.SetActive(true);
+
+        Time.timeScale = 0f;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     private void Retry()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1f;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        SceneManager.LoadScene("Test Course");
     }
 
     private void UpdateScoreLabel()
