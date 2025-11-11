@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
-     [Header("Movement")]
+    [Header("Movement")]
     private float moveSpeed;
     public float walkSpeed;
     public float sprintSpeed;
@@ -58,6 +58,8 @@ public class PlayerMovement : MonoBehaviour
     public Transform orientation;
     public GameUIManager ui;
 
+    [SerializeField] private ComboManager comboManager;
+
     float horizontalInput;
     float verticalInput;
 
@@ -103,8 +105,8 @@ public class PlayerMovement : MonoBehaviour
         {
             ReloadScene();
         }
-        
-        
+
+
         // ground check
         grounded = Physics.Raycast(transform.position, UnityEngine.Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
 
@@ -130,7 +132,7 @@ public class PlayerMovement : MonoBehaviour
         verticalInput = Input.GetAxisRaw("Vertical");
 
         // when to jump
-        if(Input.GetKey(jumpKey) && readyToJump && grounded)
+        if (Input.GetKey(jumpKey) && readyToJump && grounded)
         {
             readyToJump = false;
 
@@ -156,7 +158,7 @@ public class PlayerMovement : MonoBehaviour
     private void StateHandler()
     {
         // Mode - Sliding
-        if(wallrunning)
+        if (wallrunning)
         {
             state = MovementState.wallrunning;
             desiredMoveSpeed = wallrunSpeed;
@@ -180,7 +182,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Mode - Sprinting
-        else if(grounded && Input.GetKey(sprintKey))
+        else if (grounded && Input.GetKey(sprintKey))
         {
             state = MovementState.sprinting;
             desiredMoveSpeed = sprintSpeed;
@@ -200,7 +202,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // check if desiredMoveSpeed has changed drastically
-        if(Mathf.Abs(desiredMoveSpeed - lastDesiredMoveSpeed) > 4f && moveSpeed != 0)
+        if (Mathf.Abs(desiredMoveSpeed - lastDesiredMoveSpeed) > 4f && moveSpeed != 0)
         {
             StopAllCoroutines();
             StartCoroutine(SmoothlyLerpMoveSpeed());
@@ -255,15 +257,15 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // on ground
-        else if(grounded)
+        else if (grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
 
         // in air
-        else if(!grounded)
+        else if (!grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
 
         // turn gravity off while on slope
-        if(!wallrunning)
+        if (!wallrunning)
         {
             rb.useGravity = !OnSlope();
         }
@@ -310,7 +312,7 @@ public class PlayerMovement : MonoBehaviour
 
     public bool OnSlope()
     {
-        if(Physics.Raycast(transform.position, UnityEngine.Vector3.down, out slopeHit, playerHeight * 0.5f + 0.3f))
+        if (Physics.Raycast(transform.position, UnityEngine.Vector3.down, out slopeHit, playerHeight * 0.5f + 0.3f))
         {
             float angle = UnityEngine.Vector3.Angle(UnityEngine.Vector3.up, slopeHit.normal);
             return angle < maxSlopeAngle && angle != 0;
@@ -332,6 +334,10 @@ public class PlayerMovement : MonoBehaviour
             other.gameObject.SetActive(false);
             ui.AddScore(1);
             TestScore++;
+            if (comboManager != null)
+            {
+                comboManager.AddCombo();
+            }
         }
 
         if (other.gameObject.CompareTag("Finish Line") && TestScore >= 10)
