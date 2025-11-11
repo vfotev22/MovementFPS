@@ -17,8 +17,8 @@ public class ComboText : MonoBehaviour
 
     void Awake()
     {
+        Debug.Log(text.text);
         // Auto-assign if not set in Inspector
-        if (!text)
             text = GetComponent<TMP_Text>();
 
         originalScale = transform.localScale;
@@ -27,13 +27,15 @@ public class ComboText : MonoBehaviour
 
     public void Show(string message, Color color)
     {
+        Debug.Log(text.text);
+        Debug.Log("Show Function Called");
         text.text = message;
         text.color = color;
 
         if (currentRoutine != null)
             StopCoroutine(currentRoutine);
-
-        currentRoutine = StartCoroutine(AnimateText());
+        
+        //currentRoutine = StartCoroutine(AnimateText());
     }
 
     private IEnumerator AnimateText()
