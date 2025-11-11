@@ -2448,6 +2448,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4007630689768486828, guid: 6c0fc0df630c9d04792b1ab36da2de20,
         type: 3}
+      propertyPath: sensX
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4007630689768486828, guid: 6c0fc0df630c9d04792b1ab36da2de20,
+        type: 3}
+      propertyPath: sensY
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4007630689768486828, guid: 6c0fc0df630c9d04792b1ab36da2de20,
+        type: 3}
       propertyPath: orientation
       value: 
       objectReference: {fileID: 639335943}

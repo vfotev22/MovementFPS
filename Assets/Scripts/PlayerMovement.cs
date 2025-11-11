@@ -358,6 +358,6 @@ public class PlayerMovement : MonoBehaviour
     {
         Time.timeScale = 1f;
 
-        SceneManager.LoadScene("Test Course");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
