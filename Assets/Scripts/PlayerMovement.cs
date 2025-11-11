@@ -52,8 +52,14 @@ public class PlayerMovement : MonoBehaviour
     public int TestScore;
     public GameObject GameManager;
 
+    [Header("Timer")]
+    public Timer timerScript;
+
     [Header("Respawn Settings")]
     public Transform startPoint;
+
+    [Header("Audio")]
+    public AudioSource coinSound;
 
     public Transform orientation;
     public GameUIManager ui;
@@ -328,9 +334,11 @@ public class PlayerMovement : MonoBehaviour
 
     // Collecting the collectibles and handling other stuff in the tutorial course
     void OnTriggerEnter(Collider other)
-    {
+    {        
         if (other.gameObject.CompareTag("Collectible"))
         {
+            if (coinSound != null)
+            coinSound.Play();
             other.gameObject.SetActive(false);
             ui.AddScore(1);
             TestScore++;
@@ -340,9 +348,17 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (other.gameObject.CompareTag("Finish Line") && TestScore >= 10)
+        if (other.gameObject.CompareTag("Finish Line") && TestScore >= 20)
         {
+            if (timerScript != null)
+                timerScript.PauseTimer();
+
+            Time.timeScale = 0f;
+
             ui.ShowWin();
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
 
         if (other.gameObject.CompareTag("Kill Plane"))
