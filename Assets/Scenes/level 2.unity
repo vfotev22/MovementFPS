@@ -3956,6 +3956,16 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 1594340986}
+    - target: {fileID: 4249133732021132580, guid: d211307d0e0497a46a04be6e5adf91f2,
+        type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4249133732021132580, guid: d211307d0e0497a46a04be6e5adf91f2,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 9e4a9faec25dc3c45846b60a7aa3dce3, type: 3}
     - target: {fileID: 6142682484847126426, guid: d211307d0e0497a46a04be6e5adf91f2,
         type: 3}
       propertyPath: cam
