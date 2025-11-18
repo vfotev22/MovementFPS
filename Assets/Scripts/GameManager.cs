@@ -54,7 +54,7 @@ public class GameUIManager : MonoBehaviour
     {
         if (ended) return;
         ended = true;
-        gameOverScoreText.text = $"Score: {score}";
+        gameOverScoreText.text = $"Score: {score}/20";
         gameOverPanel.SetActive(true);
 
         Time.timeScale = 0f;
@@ -71,7 +71,7 @@ public class GameUIManager : MonoBehaviour
     {
         if (ended) return;
         ended = true;
-        winScoreText.text = $"Score: {score}";
+        winScoreText.text = $"Score: {score}/20";
         winPanel.SetActive(true);
 
         Time.timeScale = 0f;
@@ -90,7 +90,7 @@ public class GameUIManager : MonoBehaviour
 
     private void UpdateScoreLabel()
     {
-        if (scoreText) scoreText.text = $"Score: {score}";
+        if (scoreText) scoreText.text = $"Score: {score}/20";
     }
 
 

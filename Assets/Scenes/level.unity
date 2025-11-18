@@ -1928,6 +1928,13 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 194
       objectReference: {fileID: 0}
+    - target: {fileID: 8318868633719214305, guid: 0626b5ad443c13747a64497f8038b7a4,
+        type: 3}
+      propertyPath: m_text
+      value: 'Score:0/20
+
+'
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -2691,6 +2698,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2068033242}
+    - targetCorrespondingSourceObject: {fileID: 2727802914247883971, guid: 9ffc05b7aed69134c92d711e01f0f20a,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2068033246}
   m_SourcePrefab: {fileID: 100100000, guid: 9ffc05b7aed69134c92d711e01f0f20a, type: 3}
 --- !u!4 &592932053 stripped
 Transform:
@@ -3138,6 +3149,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 445629619943163785, guid: a806cb5623cbb0942a84ed068ee0cb89,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 267
+      objectReference: {fileID: 0}
+    - target: {fileID: 445629619943163785, guid: a806cb5623cbb0942a84ed068ee0cb89,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 51
+      objectReference: {fileID: 0}
+    - target: {fileID: 445629619943163785, guid: a806cb5623cbb0942a84ed068ee0cb89,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 38.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 445629619943163785, guid: a806cb5623cbb0942a84ed068ee0cb89,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1086947169838197728, guid: a806cb5623cbb0942a84ed068ee0cb89,
         type: 3}
       propertyPath: m_text
@@ -8511,7 +8542,7 @@ GameObject:
   - component: {fileID: 1603007893}
   - component: {fileID: 1603007892}
   - component: {fileID: 1603007891}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11914,6 +11945,30 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2068033246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1778486745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89c4983a57d102041a5f3e4fd936ae26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whatIsWall:
+    serializedVersion: 2
+    m_Bits: 8
+  wallCheckDistance: 1.5
+  wallRunDuration: 0.5
+  wallRunUpSpeed: 10
+  stickToWallForce: 5
+  wallRunKey: 32
+  orientation: {fileID: 883944917}
+  cam: {fileID: 1897138947}
+  wallRunFov: 90
+  defaultFov: 80
 --- !u!1 &2083330311 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: c89ff10cad1be9a4e83cf49bf466e148,
