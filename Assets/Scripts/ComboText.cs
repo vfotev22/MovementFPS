@@ -5,7 +5,7 @@ using TMPro;
 public class ComboText : MonoBehaviour
 {
     [Header("Components")]
-    [SerializeField] private TMP_Text text;  // Only ONE reference
+    [SerializeField] private TMP_Text text;
 
     [Header("Animation Settings")]
     [SerializeField] private float popScale = 1.3f;
@@ -17,8 +17,8 @@ public class ComboText : MonoBehaviour
 
     void Awake()
     {
-        Debug.Log(text.text);
-        // Auto-assign if not set in Inspector
+        // Assign automatically IF the inspector reference is missing
+        if (text == null)
             text = GetComponent<TMP_Text>();
 
         originalScale = transform.localScale;
@@ -27,20 +27,20 @@ public class ComboText : MonoBehaviour
 
     public void Show(string message, Color color)
     {
-        Debug.Log(text.text);
-        Debug.Log("Show Function Called");
         text.text = message;
         text.color = color;
 
+        // Stop old animation if one is playing
         if (currentRoutine != null)
             StopCoroutine(currentRoutine);
-        
-        //currentRoutine = StartCoroutine(AnimateText());
+
+        // Start the new pop + fade animation
+        currentRoutine = StartCoroutine(AnimateText());
     }
 
     private IEnumerator AnimateText()
     {
-        // Make visible and reset position/scale
+        // Make visible & pop big
         text.alpha = 1f;
         transform.localScale = originalScale * popScale;
 
@@ -53,7 +53,7 @@ public class ComboText : MonoBehaviour
             yield return null;
         }
 
-        // Hold for a short time before fading (optional)
+        // Pause briefly
         yield return new WaitForSeconds(0.5f);
 
         // Fade out animation

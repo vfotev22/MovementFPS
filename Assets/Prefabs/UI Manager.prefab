@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3858677436210487246
 Transform:
   m_ObjectHideFlags: 0
@@ -47,5 +47,7 @@ MonoBehaviour:
   scoreText: {fileID: 0}
   winPanel: {fileID: 0}
   gameOverPanel: {fileID: 0}
-  finalScoreText: {fileID: 0}
+  gameOverScoreText: {fileID: 0}
+  winScoreText: {fileID: 0}
   retryButton: {fileID: 0}
+  winRetryButton: {fileID: 0}

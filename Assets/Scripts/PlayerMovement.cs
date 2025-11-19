@@ -50,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Test Stage")]
     public GameObject TestCollectibles;
     public int TestScore;
+    public int requiredScore = 20;
     public GameObject GameManager;
 
     [Header("Timer")]
@@ -68,6 +69,7 @@ public class PlayerMovement : MonoBehaviour
 
     float horizontalInput;
     float verticalInput;
+    private bool hasWon = false;
 
     UnityEngine.Vector3 moveDirection;
 
@@ -104,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            QuitGame();
+            LoadMainMenu();
         }
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -125,7 +127,20 @@ public class PlayerMovement : MonoBehaviour
             rb.drag = groundDrag;
         else
             rb.drag = 0;
+
+        if (hasWon && Input.GetMouseButtonDown(0))
+        {
+            Time.timeScale = 1f;
+            SceneManager.LoadScene("level 2");
+        }
     }
+
+    private void LoadMainMenu()
+    {
+        Time.timeScale = 1f; 
+        SceneManager.LoadScene("Title Screen");
+    }
+
 
     private void FixedUpdate()
     {
@@ -334,11 +349,11 @@ public class PlayerMovement : MonoBehaviour
 
     // Collecting the collectibles and handling other stuff in the tutorial course
     void OnTriggerEnter(Collider other)
-    {        
+    {
         if (other.gameObject.CompareTag("Collectible"))
         {
             if (coinSound != null)
-            coinSound.Play();
+                coinSound.Play();
             other.gameObject.SetActive(false);
             ui.AddScore(1);
             TestScore++;
@@ -348,7 +363,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (other.gameObject.CompareTag("Finish Line") && TestScore >= 20)
+        if (other.gameObject.CompareTag("Finish Line") && TestScore >= requiredScore)
         {
             if (timerScript != null)
                 timerScript.PauseTimer();
@@ -359,6 +374,8 @@ public class PlayerMovement : MonoBehaviour
 
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+
+            hasWon = true;
         }
 
         if (other.gameObject.CompareTag("Kill Plane"))

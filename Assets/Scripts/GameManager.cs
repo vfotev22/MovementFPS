@@ -14,6 +14,12 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private TMP_Text gameOverScoreText;
     [SerializeField] private TMP_Text winScoreText;
+
+    [Header("Money UI")]
+    [SerializeField] private TMP_Text winMoneyText;
+    [SerializeField] private TMP_Text gameOverMoneyText;
+    [SerializeField] private MoneyUI moneyUI;
+
     [SerializeField] private Button retryButton;
     [SerializeField] private Button winRetryButton;
 
@@ -51,33 +57,47 @@ public class GameUIManager : MonoBehaviour
     }
 
     public void ShowGameOver()
+{
+    if (ended) return;
+    ended = true;
+
+    gameOverScoreText.text = $"Score: {score}/20";
+
+    if (moneyUI != null)
+        gameOverMoneyText.text = $"Total Money Made: ${moneyUI.currentMoney:0.00}";
+    else
+        gameOverMoneyText.text = "Total Money Made: $0.00";
+
+    gameOverPanel.SetActive(true);
+
+    Time.timeScale = 0f;
+    Cursor.lockState = CursorLockMode.None;
+    Cursor.visible = true;
+
+    if (retryButton)
     {
-        if (ended) return;
-        ended = true;
-        gameOverScoreText.text = $"Score: {score}/20";
-        gameOverPanel.SetActive(true);
-
-        Time.timeScale = 0f;
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-
-        if(retryButton)
-        {
-            EventSystem.current.SetSelectedGameObject(retryButton.gameObject);
-        }
+        EventSystem.current.SetSelectedGameObject(retryButton.gameObject);
     }
+}
 
     public void ShowWin()
-    {
-        if (ended) return;
-        ended = true;
-        winScoreText.text = $"Score: {score}/20";
-        winPanel.SetActive(true);
+{
+    if (ended) return;
+    ended = true;
 
-        Time.timeScale = 0f;
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-    }
+    winScoreText.text = $"Score: {score}/20";
+
+    if (moneyUI != null)
+        winMoneyText.text = $"Total Money Made: ${moneyUI.currentMoney:0.00}";
+    else
+        winMoneyText.text = "Total Money Made: $0.00";
+
+    winPanel.SetActive(true);
+
+    Time.timeScale = 0f;
+    Cursor.lockState = CursorLockMode.None;
+    Cursor.visible = true;
+}
 
     private void Retry()
     {
