@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
+    [Header("Timer Speed")]
+    public float TimeMultiplier = 1f;
+
     [Header("Timer Settings")]
     public float timeRemaining = 60f;
     public float maxTime = 60f;
@@ -131,5 +134,12 @@ public class Timer : MonoBehaviour
             timeRemaining = maxTime;
 
         UpdateTimerBar(); // update bar instantly
+    }
+
+    public void SetTimerMultiplier(float amount)
+    {
+        TimeMultiplier += amount;
+        if (TimeMultiplier >= 1.50) { TimeMultiplier = 1.50f; }
+        if (TimeMultiplier <= 0.90) { TimeMultiplier = 0.90f; }
     }
 }
