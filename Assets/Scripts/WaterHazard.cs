@@ -13,7 +13,7 @@ public class WaterHazard : MonoBehaviour
             FindObjectOfType<Timer>().AddTime(-3f);
             FindObjectOfType<Timer>().SetTimerMultiplier(0.10f);
                 
-            Destroy(gameObject);
+            TimeUntilNextTouch = 3.00f;
         }
     }
 
@@ -21,4 +21,5 @@ public class WaterHazard : MonoBehaviour
         if (TimeUntilNextTouch > 0) {TimeUntilNextTouch -= Time.deltaTime;}
     }
 }
+
 
