@@ -10,6 +10,7 @@ public class PauseOnStart : MonoBehaviour
     private bool isPaused;
     
     public Timer timerScript;
+    public PlayerCam playerCam;
 
     void Start()
     {
@@ -37,6 +38,11 @@ public class PauseOnStart : MonoBehaviour
 
         Cursor.lockState = pause ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = pause;
+
+        if(playerCam != null)
+        {
+            playerCam.enabled = !pause;
+        }
         
         if (pause)
             timerScript.PauseTimer();

@@ -22,7 +22,10 @@ public class GameUIManager : MonoBehaviour
 
     [SerializeField] private Button retryButton;
     [SerializeField] private Button winRetryButton;
+    [SerializeField] private int maxScore = 20;
 
+    [Header("Camera Look Script")]
+    public PlayerCam playerCam;
 
 
     private int score;
@@ -38,10 +41,10 @@ public class GameUIManager : MonoBehaviour
         {
             retryButton.onClick.AddListener(Retry);
         }
-        if(winRetryButton != null)
+        if (winRetryButton != null)
         {
             winRetryButton.onClick.AddListener(Retry);
-        }        
+        }
     }
 
     void Start()
@@ -57,47 +60,53 @@ public class GameUIManager : MonoBehaviour
     }
 
     public void ShowGameOver()
-{
-    if (ended) return;
-    ended = true;
-
-    gameOverScoreText.text = $"Score: {score}/20";
-
-    if (moneyUI != null)
-        gameOverMoneyText.text = $"Total Money Made: ${moneyUI.currentMoney:0.00}";
-    else
-        gameOverMoneyText.text = "Total Money Made: $0.00";
-
-    gameOverPanel.SetActive(true);
-
-    Time.timeScale = 0f;
-    Cursor.lockState = CursorLockMode.None;
-    Cursor.visible = true;
-
-    if (retryButton)
     {
-        EventSystem.current.SetSelectedGameObject(retryButton.gameObject);
-    }
+        if (ended) return;
+        ended = true;
+
+        gameOverScoreText.text = $"Score: {score}/{maxScore}";
+
+        if (moneyUI != null)
+            gameOverMoneyText.text = $"Total Money Made: ${moneyUI.currentMoney:0.00}";
+        else
+            gameOverMoneyText.text = "Total Money Made: $0.00";
+
+        gameOverPanel.SetActive(true);
+
+        Time.timeScale = 0f;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        if (playerCam != null)
+            playerCam.enabled = false;
+
+        if (retryButton != null && EventSystem.current != null)
+{
+    EventSystem.current.SetSelectedGameObject(retryButton.gameObject);
 }
+    }
 
     public void ShowWin()
-{
-    if (ended) return;
-    ended = true;
+    {
+        if (ended) return;
+        ended = true;
 
-    winScoreText.text = $"Score: {score}/20";
+        winScoreText.text = $"Score: {score}/{maxScore}";
 
-    if (moneyUI != null)
-        winMoneyText.text = $"Total Money Made: ${moneyUI.currentMoney:0.00}";
-    else
-        winMoneyText.text = "Total Money Made: $0.00";
+        if (moneyUI != null)
+            winMoneyText.text = $"Total Money Made: ${moneyUI.currentMoney:0.00}";
+        else
+            winMoneyText.text = "Total Money Made: $0.00";
 
-    winPanel.SetActive(true);
+        winPanel.SetActive(true);
 
-    Time.timeScale = 0f;
-    Cursor.lockState = CursorLockMode.None;
-    Cursor.visible = true;
-}
+        Time.timeScale = 0f;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        if (playerCam != null)
+            playerCam.enabled = false;
+    }
 
     private void Retry()
     {
@@ -105,12 +114,15 @@ public class GameUIManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
+        if (playerCam != null)
+            playerCam.enabled = false;
+
         SceneManager.LoadScene("Test Course");
     }
 
     private void UpdateScoreLabel()
     {
-        if (scoreText) scoreText.text = $"Score: {score}/20";
+        if (scoreText) scoreText.text = $"Score: {score}/{maxScore}";
     }
 
 
@@ -123,6 +135,9 @@ public class GameUIManager : MonoBehaviour
     {
         // Ensure time is normal again (if game was paused)
         Time.timeScale = 1f;
+
+        if (playerCam != null)
+            playerCam.enabled = true;
 
         // Reload the active scene to reset everything
         Scene currentScene = SceneManager.GetActiveScene();

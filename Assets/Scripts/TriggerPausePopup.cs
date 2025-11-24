@@ -10,6 +10,9 @@ public class TriggerPausePopup : MonoBehaviour
     [Header("Timer to pause/resume")]
     public Timer timerScript;   
 
+    [Header("Camera look script to disable during popup")]
+    public PlayerCam playerCam;
+
     [Header("Who can trigger it")]
     public string playerTag = "Player";
 
@@ -45,6 +48,9 @@ public class TriggerPausePopup : MonoBehaviour
 
         if (timerScript) timerScript.PauseTimer();
 
+         if (playerCam != null)
+            playerCam.enabled = false;
+
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible   = true;
     }
@@ -58,6 +64,9 @@ public class TriggerPausePopup : MonoBehaviour
         Time.timeScale = 1f;
 
         if (timerScript) timerScript.ResumeTimer();
+
+        if (playerCam != null)
+            playerCam.enabled = true;
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible   = false;

@@ -14,6 +14,8 @@ public class Sliding : MonoBehaviour
     public float maxSlideTime;
     public float slideForce;
     private float slideTimer;
+    public float minSlideSpeed = 7f;
+
 
     public float slideYScale;
     private float startYScale;
@@ -22,6 +24,9 @@ public class Sliding : MonoBehaviour
     public KeyCode slideKey = KeyCode.LeftControl;
     private float horizontalInput;
     private float verticalInput;
+
+    [Header("Ground Check")]
+    public PlayerMovement playerMovement;
 
 
     private void Start()
@@ -51,6 +56,14 @@ public class Sliding : MonoBehaviour
 
     private void StartSlide()
     {
+
+        if (playerMovement != null && !playerMovement.grounded)
+            return;
+
+        if (rb.velocity.magnitude < minSlideSpeed)
+        {
+            return;
+        }
         pm.sliding = true;
 
         playerObj.localScale = new Vector3(playerObj.localScale.x, slideYScale, playerObj.localScale.z);
@@ -64,7 +77,7 @@ public class Sliding : MonoBehaviour
         Vector3 inputDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
         // sliding normal
-        if(!pm.OnSlope() || rb.velocity.y > -0.1f)
+        if (!pm.OnSlope() || rb.velocity.y > -0.1f)
         {
             rb.AddForce(inputDirection.normalized * slideForce, ForceMode.Force);
 

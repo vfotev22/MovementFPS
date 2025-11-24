@@ -30,15 +30,11 @@ public class Timer : MonoBehaviour
     private Vector3 originalScale;
     private bool isPulsing = false;
 
-    [Header("Game Over UI")]
-    public GameObject gameOverCanvas;
-    public MonoBehaviour[] playerControlScripts;
+    [Header("Game Over UI Handler")]
+    public GameUIManager uiManager;
 
     void Start()
     {
-        if (gameOverCanvas != null)
-            gameOverCanvas.SetActive(false);
-
         originalScale = barTransform.localScale;
 
         UpdateTimerBar();
@@ -111,16 +107,10 @@ public class Timer : MonoBehaviour
         didGameOver = true;
         isRunning = false;
 
-        if (gameOverCanvas != null)
-            gameOverCanvas.SetActive(true);
-
-        Time.timeScale = 0f;
-
-        foreach (var script in playerControlScripts)
-            if (script) script.enabled = false;
-
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        if (uiManager != null)
+            uiManager.ShowGameOver();       // ⭐ Clean direct reference
+        else
+            Debug.LogError("Timer Error: uiManager is NULL — drag GameUIManager into the Timer!");
     }
 
     // ---------------- PUBLIC METHODS -----------------
