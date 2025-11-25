@@ -10,12 +10,15 @@ public class PauseMenu : MonoBehaviour
     public Animator animator;
 
     [Header("Disable On Pause")]
-    public MonoBehaviour[] scriptsToDisable; // player movement, shooting etc.
+    public MonoBehaviour[] scriptsToDisable; 
 
     private void Start()
     {
         pauseCanvas.SetActive(false);
         Time.timeScale = 1f;
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void Update()
@@ -38,6 +41,9 @@ public class PauseMenu : MonoBehaviour
         AudioListener.pause = true;
         IsPaused = true;
 
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         foreach (var script in scriptsToDisable)
             script.enabled = false;
     }
@@ -59,6 +65,9 @@ public class PauseMenu : MonoBehaviour
         AudioListener.pause = false;
         IsPaused = false;
 
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
         foreach (var script in scriptsToDisable)
             script.enabled = true;
     }
@@ -71,6 +80,7 @@ public class PauseMenu : MonoBehaviour
 
     public void QuitGame()
     {
-        Application.Quit();
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Title Screen");
     }
 }

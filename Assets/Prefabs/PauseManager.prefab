@@ -48,3 +48,4 @@ MonoBehaviour:
   animator: {fileID: 0}
   scriptsToDisable:
   - {fileID: 0}
+  - {fileID: 0}
