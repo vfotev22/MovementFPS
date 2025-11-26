@@ -10,7 +10,7 @@ public class HotPocket : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            FindObjectOfType<Timer>().AddTime(5f);
+            FindObjectOfType<Timer>().AddTime(6f);
             FindObjectOfType<Timer>().SetTimerMultiplier(-0.10f);
                 
             Destroy(gameObject);

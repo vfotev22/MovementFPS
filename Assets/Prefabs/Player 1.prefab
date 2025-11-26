@@ -73,11 +73,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: a359c9763d1f4754c87645b8372c0554, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 9e4a9faec25dc3c45846b60a7aa3dce3, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.394
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -328,7 +328,7 @@ Transform:
   m_GameObject: {fileID: 9005502603638435015}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -68.29208, y: 1.1000023, z: 7.7932696}
+  m_LocalPosition: {x: -62, y: 10.01, z: -0.06}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -398,8 +398,10 @@ MonoBehaviour:
     m_Bits: 8
   grounded: 0
   maxSlopeAngle: 0
-  TestCollectibles: {fileID: 0}
+  TestCollectibles: {fileID: 4644602104476488418, guid: e90213b4590129e4abb61e24b0f77229,
+    type: 3}
   TestScore: 0
+  requiredScore: 20
   GameManager: {fileID: 0}
   timerScript: {fileID: 0}
   startPoint: {fileID: 0}
@@ -427,8 +429,10 @@ MonoBehaviour:
   playerObj: {fileID: 4492889476101504010}
   maxSlideTime: 0.75
   slideForce: 200
+  minSlideSpeed: 7
   slideYScale: 0.5
   slideKey: 306
+  playerMovement: {fileID: 250636993925924140}
 --- !u!114 &598718239740528785
 MonoBehaviour:
   m_ObjectHideFlags: 0

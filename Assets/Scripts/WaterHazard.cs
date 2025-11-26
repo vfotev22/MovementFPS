@@ -1,25 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class WaterHazard : MonoBehaviour
+public class WaterHazardTrigger : MonoBehaviour
 {
-    public float TimeUntilNextTouch = 3.00f;
+    public float damageCooldown = 3f;
+    private float timer = 0f;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player") && TimeUntilNextTouch <= 0)
+        if (!other.CompareTag("Player"))
+            return;
+
+        if (timer > 0)
         {
-            FindObjectOfType<Timer>().AddTime(-3f);
-            FindObjectOfType<Timer>().SetTimerMultiplier(0.10f);
-                
-            TimeUntilNextTouch = 3.00f;
+            timer -= Time.deltaTime;
+            return;
+        }
+
+        Timer t = FindObjectOfType<Timer>();
+        t.AddTime(-3f);
+        t.SetTimerMultiplier(0.10f);
+
+        timer = damageCooldown;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            timer = 0f;
         }
     }
-
-    void Update(){
-        if (TimeUntilNextTouch > 0) {TimeUntilNextTouch -= Time.deltaTime;}
-    }
 }
-
-

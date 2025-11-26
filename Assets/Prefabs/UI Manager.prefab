@@ -49,5 +49,10 @@ MonoBehaviour:
   gameOverPanel: {fileID: 0}
   gameOverScoreText: {fileID: 0}
   winScoreText: {fileID: 0}
+  winMoneyText: {fileID: 0}
+  gameOverMoneyText: {fileID: 0}
+  moneyUI: {fileID: 0}
   retryButton: {fileID: 0}
   winRetryButton: {fileID: 0}
+  maxScore: 20
+  playerCam: {fileID: 0}

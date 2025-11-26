@@ -74,8 +74,13 @@ public class PauseMenu : MonoBehaviour
 
     public void RestartGame()
     {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    AudioListener.pause = false;       
+    IsPaused = false;                  
+    Time.timeScale = 1f;               
+    Cursor.lockState = CursorLockMode.Locked;
+    Cursor.visible = false;
+
+    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void QuitGame()

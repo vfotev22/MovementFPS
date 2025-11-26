@@ -61,6 +61,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Audio")]
     public AudioSource coinSound;
+    public AudioSource hotPocketSound;
 
     public Transform orientation;
     public GameUIManager ui;
@@ -126,13 +127,27 @@ public class PlayerMovement : MonoBehaviour
         if (hasWon && Input.GetMouseButtonDown(0))
         {
             Time.timeScale = 1f;
-            SceneManager.LoadScene("level 2");
+
+            string currentScene = SceneManager.GetActiveScene().name;
+
+            if (currentScene == "level")
+            {
+                SceneManager.LoadScene("level 2");
+            }
+            else if (currentScene == "level 2")
+            {
+                SceneManager.LoadScene("level 3");
+            }
+            else if(currentScene == "level 3")
+            {
+                SceneManager.LoadScene("Title Screen");
+            }
         }
     }
 
     private void LoadMainMenu()
     {
-        Time.timeScale = 1f; 
+        Time.timeScale = 1f;
         SceneManager.LoadScene("Title Screen");
     }
 
@@ -357,6 +372,14 @@ public class PlayerMovement : MonoBehaviour
                 comboManager.AddCombo();
             }
         }
+
+        if (other.gameObject.CompareTag("HotPocket"))
+    {
+        if (hotPocketSound != null)
+            hotPocketSound.Play();
+
+        other.gameObject.SetActive(false);
+    }
 
         if (other.gameObject.CompareTag("Finish Line") && TestScore >= requiredScore)
         {
