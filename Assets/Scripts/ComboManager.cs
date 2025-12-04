@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,14 +15,21 @@ public class ComboManager : MonoBehaviour
     [SerializeField] private float shakeAmount = 10f;
     [SerializeField] private float shakeDuration = 0.15f;
 
-    [SerializeField] private string[] comboWords = { "Good!", "Great!", "Wonderful!", "Amazing!", "BRAH!","Skrrt Skrrt!" };
     [SerializeField]
-    private Color[] comboColors = {
+    private string[] comboWords = { "Good!", "Great!", "Wonderful!", "Amazing!", "BRAH!", "Skrrt Skrrt!" };
+
+    [SerializeField]
+    private Color[] comboColors =
+    {
         Color.yellow,
         new Color(1f, 0.65f, 0.2f),
         Color.red,
         new Color(0.95f, 0.4f, 0.95f)
     };
+
+    [Header("Voice Lines")]
+    public AudioClip[] voiceLines;
+    private AudioSource audioSource;
 
     private int comboCount = 0;
     private float lastComboTime;
@@ -34,6 +41,8 @@ public class ComboManager : MonoBehaviour
 
         if (comboMeter != null)
             comboMeter.fillAmount = 0f;
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void AddCombo()
@@ -49,6 +58,9 @@ public class ComboManager : MonoBehaviour
 
         UpdateComboMeter();
         StartCoroutine(ShakeUI());
+
+        //  Play your random voice line here
+        PlayVoiceLine();
 
         Debug.Log($"Combo triggered: {word}");
     }
@@ -72,7 +84,8 @@ public class ComboManager : MonoBehaviour
             float x = Random.Range(-shakeAmount, shakeAmount);
             float y = Random.Range(-shakeAmount, shakeAmount);
 
-            shakeTarget.localPosition = originalShakePos + new Vector3(x, y, 0);
+            shakeTarget.localPosition =
+                originalShakePos + new Vector3(x, y, 0);
 
             yield return null;
         }
@@ -89,5 +102,13 @@ public class ComboManager : MonoBehaviour
             if (comboMeter != null)
                 comboMeter.fillAmount = 0f;
         }
+    }
+
+    private void PlayVoiceLine()
+    {
+        if (voiceLines != null || voiceLines.Length == 0) return;
+
+        int index = Random.Range(0, voiceLines.Length);
+        audioSource.PlayOneShot(voiceLines[index]);
     }
 }
