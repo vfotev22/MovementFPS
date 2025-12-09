@@ -5,6 +5,30 @@ public class WaterHazardTrigger : MonoBehaviour
     public float damageCooldown = 3f;
     private float timer = 0f;
 
+    [Header("Audio Settings")]
+    public AudioClip waterSound;
+    private AudioSource audioSource;
+    private bool hasPlayedSound = false;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!other.CompareTag("Player"))
+            return;
+
+        if (!hasPlayedSound && waterSound != null)
+        {
+            audioSource.PlayOneShot(waterSound);
+            hasPlayedSound = true;
+        }
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (!other.CompareTag("Player"))
@@ -28,6 +52,7 @@ public class WaterHazardTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             timer = 0f;
+            hasPlayedSound = false;
         }
     }
 }
