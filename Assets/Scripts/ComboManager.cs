@@ -106,7 +106,7 @@ public class ComboManager : MonoBehaviour
 
     private void PlayVoiceLine()
     {
-        if (voiceLines == null || voiceLines.Length == 0)
+        if (voiceLines != null || voiceLines.Length == 0)
             return;
 
         int index = Random.Range(0, voiceLines.Length);
