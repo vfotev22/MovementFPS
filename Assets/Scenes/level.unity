@@ -8273,6 +8273,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1622947426929507695, guid: 0626b5ad443c13747a64497f8038b7a4,
         type: 3}
+      propertyPath: m_margin.z
+      value: -99.31789
+      objectReference: {fileID: 0}
+    - target: {fileID: 1622947426929507695, guid: 0626b5ad443c13747a64497f8038b7a4,
+        type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a,
@@ -8310,10 +8315,25 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4605097257886320313, guid: 0626b5ad443c13747a64497f8038b7a4,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 841
+      objectReference: {fileID: 0}
+    - target: {fileID: 4605097257886320313, guid: 0626b5ad443c13747a64497f8038b7a4,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 79
+      objectReference: {fileID: 0}
     - target: {fileID: 5218921999103288221, guid: 0626b5ad443c13747a64497f8038b7a4,
         type: 3}
       propertyPath: m_Name
       value: Score
+      objectReference: {fileID: 0}
+    - target: {fileID: 6024236955897811854, guid: 0626b5ad443c13747a64497f8038b7a4,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 489
       objectReference: {fileID: 0}
     - target: {fileID: 8310165625861874113, guid: 0626b5ad443c13747a64497f8038b7a4,
         type: 3}
@@ -8442,6 +8462,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: 'Food Heat:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8886541107244450448, guid: 0626b5ad443c13747a64497f8038b7a4,
+        type: 3}
+      propertyPath: m_margin.x
+      value: -32.436882
       objectReference: {fileID: 0}
     - target: {fileID: 8886541107244450448, guid: 0626b5ad443c13747a64497f8038b7a4,
         type: 3}

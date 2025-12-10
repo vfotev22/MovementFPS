@@ -12598,6 +12598,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 905324402967868416, guid: 0626b5ad443c13747a64497f8038b7a4,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 0161d805a3764c089bef00bfe00793f5,
+        type: 2}
+    - target: {fileID: 905324402967868416, guid: 0626b5ad443c13747a64497f8038b7a4,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2147374, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
+    - target: {fileID: 905324402967868416, guid: 0626b5ad443c13747a64497f8038b7a4,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1506589368241487183, guid: 0626b5ad443c13747a64497f8038b7a4,
         type: 3}
       propertyPath: maxTime
@@ -12663,6 +12679,27 @@ PrefabInstance:
       propertyPath: m_text
       value: 'Total Amount of Receipts: 35'
       objectReference: {fileID: 0}
+    - target: {fileID: 1622947426929507695, guid: 0626b5ad443c13747a64497f8038b7a4,
+        type: 3}
+      propertyPath: m_margin.z
+      value: -140.29088
+      objectReference: {fileID: 0}
+    - target: {fileID: 1622947426929507695, guid: 0626b5ad443c13747a64497f8038b7a4,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a,
+        type: 2}
+    - target: {fileID: 1622947426929507695, guid: 0626b5ad443c13747a64497f8038b7a4,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+    - target: {fileID: 1622947426929507695, guid: 0626b5ad443c13747a64497f8038b7a4,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1923304999559895716, guid: 0626b5ad443c13747a64497f8038b7a4,
         type: 3}
       propertyPath: uiManager
@@ -12675,10 +12712,41 @@ PrefabInstance:
 
 '
       objectReference: {fileID: 0}
+    - target: {fileID: 4483424093107237342, guid: 0626b5ad443c13747a64497f8038b7a4,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91,
+        type: 2}
+    - target: {fileID: 4483424093107237342, guid: 0626b5ad443c13747a64497f8038b7a4,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+    - target: {fileID: 4483424093107237342, guid: 0626b5ad443c13747a64497f8038b7a4,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4605097257886320313, guid: 0626b5ad443c13747a64497f8038b7a4,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 843
+      objectReference: {fileID: 0}
+    - target: {fileID: 4605097257886320313, guid: 0626b5ad443c13747a64497f8038b7a4,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 65
+      objectReference: {fileID: 0}
     - target: {fileID: 5218921999103288221, guid: 0626b5ad443c13747a64497f8038b7a4,
         type: 3}
       propertyPath: m_Name
       value: Score
+      objectReference: {fileID: 0}
+    - target: {fileID: 6024236955897811854, guid: 0626b5ad443c13747a64497f8038b7a4,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 483
       objectReference: {fileID: 0}
     - target: {fileID: 8310165625861874113, guid: 0626b5ad443c13747a64497f8038b7a4,
         type: 3}
@@ -12785,10 +12853,47 @@ PrefabInstance:
       propertyPath: m_text
       value: Score:0/25
       objectReference: {fileID: 0}
+    - target: {fileID: 8523799451267490616, guid: 0626b5ad443c13747a64497f8038b7a4,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a,
+        type: 2}
+    - target: {fileID: 8523799451267490616, guid: 0626b5ad443c13747a64497f8038b7a4,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+    - target: {fileID: 8523799451267490616, guid: 0626b5ad443c13747a64497f8038b7a4,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8886541107244450448, guid: 0626b5ad443c13747a64497f8038b7a4,
         type: 3}
       propertyPath: m_text
       value: 'Food Heat:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8886541107244450448, guid: 0626b5ad443c13747a64497f8038b7a4,
+        type: 3}
+      propertyPath: m_margin.x
+      value: -32.436882
+      objectReference: {fileID: 0}
+    - target: {fileID: 8886541107244450448, guid: 0626b5ad443c13747a64497f8038b7a4,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a,
+        type: 2}
+    - target: {fileID: 8886541107244450448, guid: 0626b5ad443c13747a64497f8038b7a4,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+    - target: {fileID: 8886541107244450448, guid: 0626b5ad443c13747a64497f8038b7a4,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1923304999559895716, guid: 0626b5ad443c13747a64497f8038b7a4, type: 3}
