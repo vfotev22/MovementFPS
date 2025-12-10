@@ -15,6 +15,10 @@ public class ComboText : MonoBehaviour
     private Vector3 originalScale;
     private Coroutine currentRoutine;
 
+    [Header("Voice Lines")]
+    public AudioClip[] voiceLines;
+    private AudioSource audioSource;
+
     void Awake()
     {
         // Assign automatically IF the inspector reference is missing
@@ -23,6 +27,8 @@ public class ComboText : MonoBehaviour
 
         originalScale = transform.localScale;
         text.alpha = 0f;
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void Show(string message, Color color)
@@ -36,6 +42,8 @@ public class ComboText : MonoBehaviour
 
         // Start the new pop + fade animation
         currentRoutine = StartCoroutine(AnimateText());
+
+        PlayVoiceLine();
     }
 
     private IEnumerator AnimateText()
@@ -67,5 +75,17 @@ public class ComboText : MonoBehaviour
 
         text.alpha = 0f;
         transform.localScale = originalScale;
+    }
+
+    private void PlayVoiceLine()
+    {
+        if (voiceLines == null || voiceLines.Length == 0)
+            return;
+
+        if (audioSource == null)
+            return;
+
+        int index = Random.Range(0, voiceLines.Length);
+        audioSource.PlayOneShot(voiceLines[index]);
     }
 }
