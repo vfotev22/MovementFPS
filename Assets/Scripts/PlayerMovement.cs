@@ -126,23 +126,18 @@ public class PlayerMovement : MonoBehaviour
 
         if (hasWon && Input.GetMouseButtonDown(0))
         {
-            Time.timeScale = 1f;
-
             string currentScene = SceneManager.GetActiveScene().name;
+            string nextScene = "";
 
-            if (currentScene == "level")
-            {
-                SceneManager.LoadScene("level 2");
-            }
-            else if (currentScene == "level 2")
-            {
-                SceneManager.LoadScene("level 3");
-            }
-            else if(currentScene == "level 3")
-            {
-                SceneManager.LoadScene("Title Screen");
-            }
+            if (currentScene == "level") nextScene = "level 2";
+            else if (currentScene == "level 2") nextScene = "level 3";
+            else if (currentScene == "level 3") nextScene = "Title Screen";
+
+            FadeManager fade = FindObjectOfType<FadeManager>();
+            fade.FadeOutToScene(nextScene);
         }
+
+
     }
 
     private void LoadMainMenu()
@@ -374,12 +369,12 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if (other.gameObject.CompareTag("HotPocket"))
-    {
-        if (hotPocketSound != null)
-            hotPocketSound.Play();
+        {
+            if (hotPocketSound != null)
+                hotPocketSound.Play();
 
-        other.gameObject.SetActive(false);
-    }
+            other.gameObject.SetActive(false);
+        }
 
         if (other.gameObject.CompareTag("Finish Line") && TestScore >= requiredScore)
         {

@@ -14,8 +14,8 @@ public class Timer : MonoBehaviour
     private bool didGameOver = false;
 
     [Header("UI Bar (Fill)")]
-    public Image timerFillImage;          // The bar that shrinks
-    public RectTransform barTransform;    // Used for pulse effect
+    public Image timerFillImage;
+    public RectTransform barTransform;
 
     [Header("Color Settings")]
     public Color highColor = Color.green;
@@ -33,12 +33,28 @@ public class Timer : MonoBehaviour
     [Header("Game Over UI Handler")]
     public GameUIManager uiManager;
 
+    // ---------------- AUDIO WARNING -----------------
+    [Header("Low-Time Warning")]
+    public AudioClip warningClip;      // assign in inspector
+    public float warningVolume = 1f;
+    private AudioSource audioSource;
+    private bool hasPlayedWarning = false;
+
+
     void Start()
     {
         originalScale = barTransform.localScale;
 
         UpdateTimerBar();
         UpdateColor(1f);
+
+        // Setup audio
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
+
+        audioSource.playOnAwake = false;
+        audioSource.loop = false;
     }
 
     void Update()
@@ -47,6 +63,12 @@ public class Timer : MonoBehaviour
             return;
 
         timeRemaining -= Time.deltaTime;
+
+        // ---------------- LOW TIME AUDIO -----------------
+        if (!hasPlayedWarning && timeRemaining <= maxTime * pulseThreshold)
+        {
+            PlayLowTimeWarning();
+        }
 
         if (timeRemaining <= 0)
         {
@@ -60,6 +82,16 @@ public class Timer : MonoBehaviour
         UpdateColor(normalized);
         HandlePulse(normalized);
     }
+
+    // ---------------- AUDIO FUNCTION -----------------
+    private void PlayLowTimeWarning()
+    {
+        if (warningClip == null) return;
+
+        audioSource.PlayOneShot(warningClip, warningVolume);
+        hasPlayedWarning = true;
+    }
+
 
     // ---------------- FILL BAR -----------------
     void UpdateTimerBar()
@@ -108,7 +140,7 @@ public class Timer : MonoBehaviour
         isRunning = false;
 
         if (uiManager != null)
-            uiManager.ShowGameOver();       // ⭐ Clean direct reference
+            uiManager.ShowGameOver();
         else
             Debug.LogError("Timer Error: uiManager is NULL — drag GameUIManager into the Timer!");
     }
@@ -123,7 +155,11 @@ public class Timer : MonoBehaviour
         if (timeRemaining > maxTime)
             timeRemaining = maxTime;
 
-        UpdateTimerBar(); // update bar instantly
+        // OPTIONAL reset warning if going above threshold again:
+        if (timeRemaining > maxTime * pulseThreshold)
+            hasPlayedWarning = false;
+
+        UpdateTimerBar();
     }
 
     public void SetTimerMultiplier(float amount)
