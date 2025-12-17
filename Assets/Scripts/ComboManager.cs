@@ -6,17 +6,26 @@ public class ComboManager : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private ComboText comboText;
-    [SerializeField] private Image comboMeter;   // Combo bar reference
-    [SerializeField] private RectTransform shakeTarget; // UI object to shake
+    [SerializeField] private Image comboMeter;
+    [SerializeField] private RectTransform shakeTarget;
 
     [Header("Settings")]
     [SerializeField] private float comboResetTime = 2f;
-    [SerializeField] private float maxCombo = 20f; // meter max value
+    [SerializeField] private float maxCombo = 20f;
     [SerializeField] private float shakeAmount = 10f;
     [SerializeField] private float shakeDuration = 0.15f;
 
+    [Header("Combo Text (per tier)")]
     [SerializeField]
-    private string[] comboWords = { "Good!", "Great!", "Wonderful!", "Amazing!", "BRAH!", "Skrrt Skrrt!" };
+    private string[] comboWords =
+    {
+        "Good!",
+        "Great!",
+        "Wonderful!",
+        "Amazing!",
+        "BRAH!",
+        "Skrrt Skrrt!"
+    };
 
     [SerializeField]
     private Color[] comboColors =
@@ -27,54 +36,95 @@ public class ComboManager : MonoBehaviour
         new Color(0.95f, 0.4f, 0.95f)
     };
 
-    [Header("Voice Lines")]
-    public AudioClip[] voiceLines;
+    [Header("Voice Lines (Plays In Order)")]
+    [SerializeField] private AudioClip[] voiceLines;
+
     private AudioSource audioSource;
 
-    private int comboCount = 0;
-    private float lastComboTime;
+    private int pickupCount = 0;      // counts every receipt
+    private float lastPickupTime;
     private Vector3 originalShakePos;
 
-    void Start()
+    private int voiceLineIndex = 0;   // ordered VO index
+
+    // --------------------------------------------------
+    // UNITY LIFECYCLE
+    // --------------------------------------------------
+
+    private void Start()
     {
-        originalShakePos = shakeTarget.localPosition;
+        if (shakeTarget != null)
+            originalShakePos = shakeTarget.localPosition;
 
         if (comboMeter != null)
             comboMeter.fillAmount = 0f;
 
         audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
     }
+
+    private void Update()
+    {
+        // Reset combo if time expires
+        if (pickupCount > 0 && Time.time - lastPickupTime > comboResetTime)
+        {
+            pickupCount = 0;
+            voiceLineIndex = 0;
+
+            if (comboMeter != null)
+                comboMeter.fillAmount = 0f;
+        }
+    }
+
+    // --------------------------------------------------
+    // COMBO LOGIC
+    // --------------------------------------------------
 
     public void AddCombo()
     {
-        comboCount++;
-        lastComboTime = Time.time;
+        pickupCount++;
+        lastPickupTime = Time.time;
 
-        int index = Mathf.Min(comboCount - 1, comboWords.Length - 1);
-        string word = comboWords[index];
-        Color color = comboColors[index % comboColors.Length];
+        // ❗ UI triggers ONLY every 3 pickups
+        if (pickupCount % 3 != 0)
+            return;
 
-        comboText?.Show(word, color);
+        int tier = (pickupCount / 3) - 1;
+        tier = Mathf.Clamp(tier, 0, comboWords.Length - 1);
+
+        string word = comboWords[tier];
+        Color color = comboColors[tier % comboColors.Length];
+
+        // Show combo UI
+        if (comboText != null)
+            comboText.Show(word, color);
 
         UpdateComboMeter();
         StartCoroutine(ShakeUI());
 
-        //  Play your random voice line here
+        // Play ordered voice line
         PlayVoiceLine();
 
-        Debug.Log($"Combo triggered: {word}");
+        Debug.Log($"Combo Tier Triggered at pickup: {pickupCount}");
     }
 
     private void UpdateComboMeter()
     {
         if (comboMeter == null) return;
 
-        float fill = Mathf.Clamp01(comboCount / maxCombo);
+        float fill = Mathf.Clamp01(pickupCount / maxCombo);
         comboMeter.fillAmount = fill;
     }
 
+    // --------------------------------------------------
+    // UI EFFECTS
+    // --------------------------------------------------
+
     private IEnumerator ShakeUI()
     {
+        if (shakeTarget == null) yield break;
+
         float timer = 0f;
 
         while (timer < shakeDuration)
@@ -85,7 +135,7 @@ public class ComboManager : MonoBehaviour
             float y = Random.Range(-shakeAmount, shakeAmount);
 
             shakeTarget.localPosition =
-                originalShakePos + new Vector3(x, y, 0);
+                originalShakePos + new Vector3(x, y, 0f);
 
             yield return null;
         }
@@ -93,23 +143,22 @@ public class ComboManager : MonoBehaviour
         shakeTarget.localPosition = originalShakePos;
     }
 
-    private void Update()
-    {
-        if (comboCount > 0 && Time.time - lastComboTime > comboResetTime)
-        {
-            comboCount = 0;
-
-            if (comboMeter != null)
-                comboMeter.fillAmount = 0f;
-        }
-    }
+    // --------------------------------------------------
+    // AUDIO (ORDERED, EVERY 3 PICKUPS)
+    // --------------------------------------------------
 
     private void PlayVoiceLine()
     {
-        if (voiceLines != null || voiceLines.Length == 0)
+        if (voiceLines == null || voiceLines.Length == 0)
             return;
 
-        int index = Random.Range(0, voiceLines.Length);
-        audioSource.PlayOneShot(voiceLines[index]);
+        if (audioSource == null)
+            return;
+
+        audioSource.PlayOneShot(voiceLines[voiceLineIndex]);
+
+        voiceLineIndex++;
+        if (voiceLineIndex >= voiceLines.Length)
+            voiceLineIndex = 0;
     }
 }
