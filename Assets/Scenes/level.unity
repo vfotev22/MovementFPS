@@ -1468,7 +1468,7 @@ PrefabInstance:
     - target: {fileID: 4709180097237798243, guid: 3a4e7d6ccf137fd46b8d9e2f2e9ab4b1,
         type: 3}
       propertyPath: voiceLines.Array.size
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4709180097237798243, guid: 3a4e7d6ccf137fd46b8d9e2f2e9ab4b1,
         type: 3}
@@ -12163,6 +12163,11 @@ PrefabInstance:
       propertyPath: fadeCanvas
       value: 
       objectReference: {fileID: 1403754577}
+    - target: {fileID: 659545238718650512, guid: 18605d4470a671e4a8bcb0e68b334cdf,
+        type: 3}
+      propertyPath: skipFadeIn
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2102258342588140848, guid: 18605d4470a671e4a8bcb0e68b334cdf,
         type: 3}
       propertyPath: m_LocalPosition.x

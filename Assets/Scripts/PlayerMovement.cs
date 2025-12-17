@@ -131,7 +131,8 @@ public class PlayerMovement : MonoBehaviour
 
             if (currentScene == "level") nextScene = "level 2";
             else if (currentScene == "level 2") nextScene = "level 3";
-            else if (currentScene == "level 3") nextScene = "Title Screen";
+            else if (currentScene == "level 3") nextScene = "level 4 redo";
+            else if (currentScene == "level 4 redo") nextScene = "Title Screen";
 
             FadeManager fade = FindObjectOfType<FadeManager>();
             fade.FadeOutToScene(nextScene);

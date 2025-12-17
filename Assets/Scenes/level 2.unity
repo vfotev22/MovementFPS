@@ -6521,7 +6521,7 @@ PrefabInstance:
     - target: {fileID: 4709180097237798243, guid: 3a4e7d6ccf137fd46b8d9e2f2e9ab4b1,
         type: 3}
       propertyPath: voiceLines.Array.size
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4709180097237798243, guid: 3a4e7d6ccf137fd46b8d9e2f2e9ab4b1,
         type: 3}
