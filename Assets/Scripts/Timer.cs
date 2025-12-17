@@ -155,10 +155,6 @@ public class Timer : MonoBehaviour
         if (timeRemaining > maxTime)
             timeRemaining = maxTime;
 
-        // OPTIONAL reset warning if going above threshold again:
-        if (timeRemaining > maxTime * pulseThreshold)
-            hasPlayedWarning = false;
-
         UpdateTimerBar();
     }
 
